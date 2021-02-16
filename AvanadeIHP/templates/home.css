@@ -8,9 +8,64 @@ body {
   }
   
 .img {
+    position: absolute;
     width: 100%;
     height: auto;
+    z-index: 1;
 }
+
+.redBubble{
+    position:absolute;
+	width: 150px;
+	height: 150px;
+	background-color: red;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+  opacity:0.4;
+  z-index: 2;
+  left: 600px;
+  top: 60px;
+}
+
+.greenBubble{
+    position:absolute;
+	width: 200px;
+	height: 200px;
+	background-color: green;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+  opacity:0.4;
+  z-index: 2;
+  left: 60px;
+  top: 60px;
+}
+
+.blueBubble{
+    position:absolute;
+	width: 150px;
+	height: 150px;
+	background-color: blue;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+  opacity:0.4;
+  z-index: 2;
+  left: 400px;
+  top: 220px;
+}
+
+.purpleBubble{
+    position:absolute;
+	width: 160px;
+	height: 160px;
+	background-color: purple;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+  opacity:0.4;
+  z-index: 2;
+  left: 900px;
+  top: 90px;
+}
+
 .bubbles {
     position: absolute;
     width: 100%;
@@ -123,4 +178,7 @@ body {
         bottom: 1080px;
         transform: translateX(-200px);
     }
+
+
+
 }

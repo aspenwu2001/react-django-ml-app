@@ -4,31 +4,32 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Jumbotron Template for Bootstrap</title>
+    <title>Avanade IHP</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
     <link href="home.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <style>
+      body{
+         margin-top: 60px;
+     }
+     .container {max-width: 960px;}
+     .border-top { border-top: 1px solid #e5e5e5; }
+     .border-bottom { border-bottom: 1px solid #e5e5e5; }
+     .border-top-gray { border-top-color: #adb5bd; }
+     .box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+     .lh-condensed { line-height: 1.25; }
+     </style>
   </head>
 
   <body>
@@ -48,7 +49,7 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <li class="active"><a href="#"><span class="glyphicon glyphicon-home"> </span> Home</a></li>
-              <li><a href="#about"><span class="glyphicon glyphicon-book"> </span> Generate</a></li>
+              <li><a href="generate.html"><span class="glyphicon glyphicon-book"> </span> Generate</a></li>
               <li><a href="#contact"><span class="glyphicon glyphicon-wrench"> </span> Train</a></li>
 
               <form class="navbar-form navbar-right">
@@ -78,9 +79,45 @@
         <div class="bubble"></div>
         <div class="bubble"></div>
     </div>
+      
+      <div>
+        <img src="img/1.jpg" class="img-responsive" alt="001" width="2560" height="850">
+      </div>
 
+      <div class="container">
+        <div class="redBubble"  data-toggle="popover"  title="Title"
+        data-container="body" data-toggle="popover" data-placement="right"
+        data-content="#description">
+          <div class ="text-center">
+            <p>RACE</p>
+          </div>
+        </div>
 
-        <img src="1.jpg" class="img-responsive" alt="001" width="2560" height="850">
+        <div class="greenBubble"  data-toggle="popover"  title="Title"
+        data-container="body" data-toggle="popover" data-placement="right"
+        data-content="#description">
+          <div class ="text-center">
+            <p>religion</p>
+          </div>
+        </div>
+
+        <div class="blueBubble"  data-toggle="popover"  title="Title"
+        data-container="body" data-toggle="popover" data-placement="right"
+        data-content="#description">
+          <div class ="text-center">
+            <p>RACE</p>
+          </div>
+        </div>
+
+        <div class="purpleBubble"  data-toggle="popover"  title="Title"
+        data-container="body" data-toggle="popover" data-placement="right"
+        data-content="#description">
+          <div class ="text-center">
+            <p>RACE</p>
+          </div>
+        </div>
+
+      </div>
         <hr style="border:1 dashed #987cb9" width="80%" color="#987cb9" size=1>
 
     <div class="container">
@@ -91,9 +128,6 @@
 
       <hr>
 
-      <footer>
-        <p>&copy; 2016 Company, Inc.</p>
-      </footer>
     </div> <!-- /container -->
 
 
@@ -103,7 +137,12 @@
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    
+    <script>
+      $(function (){
+          $("[data-toggle='popover']").popover();
+      });
+      </script>
+
   </body>
 </html>
