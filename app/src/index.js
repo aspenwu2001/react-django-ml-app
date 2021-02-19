@@ -10,7 +10,7 @@ ReactDOM.render(
   <React.StrictMode>
     <NaviBar /> 
     {/* <Home /> */}
-    < Generate / >
+    < Generate />
   </React.StrictMode>,
   document.getElementById('root')
 );

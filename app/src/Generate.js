@@ -5,7 +5,6 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Typography from '@material-ui/core/Typography';
-import DraftsIcon from '@material-ui/icons/Drafts';
 import SendIcon from '@material-ui/icons/Send';
 import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
 import { Container } from '@material-ui/core';
@@ -32,17 +31,18 @@ const useStyles = makeStyles((theme) => ({
 export default function TypographyMenu() {
   const classes = useStyles();
   const [state, setState] = React.useState({
-    gilad: true,
-    jason: false,
-    antoine: false,
+    lang: true,
+    gender: true,
+    race: false,
+    etc: false,
   });
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
-  const { gilad, jason, antoine } = state;
-  const error = [gilad, jason, antoine].filter((v) => v).length !== 2;
+  const { lang, gender, race, etc } = state;
+  const error = [lang, gender, race, etc].filter((v) => v).length !== 2;
 
   return (
     <Container className={classes.root}>
@@ -52,19 +52,19 @@ export default function TypographyMenu() {
             <FormLabel component="legend">Assign responsibility</FormLabel>
             <FormGroup>
             <FormControlLabel
-                control={<Checkbox checked={gilad} onChange={handleChange} name="gilad" />}
+                control={<Checkbox checked={lang} onChange={handleChange} name="lang" />}
                 label="Language"
             />
             <FormControlLabel
-                control={<Checkbox checked={gilad} onChange={handleChange} name="gilad" />}
+                control={<Checkbox checked={gender} onChange={handleChange} name="gender" />}
                 label="Gender"
             />
             <FormControlLabel
-                control={<Checkbox checked={jason} onChange={handleChange} name="jason" />}
+                control={<Checkbox checked={race} onChange={handleChange} name="race" />}
                 label="Race"
             />
             <FormControlLabel
-                control={<Checkbox checked={antoine} onChange={handleChange} name="antoine" />}
+                control={<Checkbox checked={etc} onChange={handleChange} name="etc" />}
                 label="Etc."
             />
             </FormGroup>
