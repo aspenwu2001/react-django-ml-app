@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Home from './Home';
 import Generate from './Generate';
+import Train from './Train';
 import NaviBar from './NaviBar';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -9,8 +10,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 ReactDOM.render(
   <React.StrictMode>
     <NaviBar /> 
-    {/* <Home /> */}
-    < Generate />
+    {/* <Home /> < Generate />*/}
+    < Train />
+    
   </React.StrictMode>,
   document.getElementById('root')
 );
