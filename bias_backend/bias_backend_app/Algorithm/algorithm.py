@@ -6,22 +6,15 @@ from gensim.models.word2vec import Word2Vec
 from gensim.models import KeyedVectors
 import werkzeug
 from nltk.tokenize import TweetTokenizer
-# import modelFactory
+#import modelFactory
 import json
 import csv
-import string
-import os
-workpath = os.path.dirname(os.path.abspath(__file__))
 
 class biasAlgorithm:
 
-    def __init__(self,model):
+    def __init__(self,model,biasPairAddress):
         self.__model = model
-        pairlist = list(csv.reader(open(os.path.join(workpath, 'GenderBiasPair.csv'),'r')))
-        temp = []
-        for x in pairlist:
-           temp.append((x[0],x[1]))
-        self.__biased_word_pairs =temp
+        self.__biased_word_pairs =self.__readBiasPair(biasPairAddress)
         self.__process_data()
 
     def estimate(self,index):
@@ -34,6 +27,12 @@ class biasAlgorithm:
         else:
             return "Unbiased"
 
+    def __readBiasPair(self,address):
+        pairlist = list(csv.reader(open(address,'r')))
+        temp = []
+        for x in pairlist:
+           temp.append((x[0],x[1]))
+        return temp
     def reload_new_source(self,newsource):
         self.source = newsource
         self.__model = gensim.models.KeyedVectors.load_word2vec_format(self.source, binary=True)
@@ -83,18 +82,3 @@ class biasAlgorithm:
             token_result = {"original": tokens[formattedTokens.index(token)],"token": token, "bias":index,"status": self.estimate(index)}
             results.append(token_result)
         return json.dumps({"results": results},ensure_ascii=False)
-if __name__ == "__main__":
-
-    # cc = wordpair.word_pairs()
-    # print(cc.gender_pair)
-
-    bd = biasAlgorithm();#biased_word_pairs);
-    print(bd.detect("girl with Man artist actor actress work an the so"))
-    print(bd.detect("man, MAN"))
-    print(bd.detect("GIRL"))
-    print(bd.detect("GIrl"))
-    print(bd.detect("GIRl"))
-    #bd.add_pair([("girl", "boy"),("actor","actress")])
-    #print(bd.detect("girl boy"))
-    #bd.add_pair([("girl", "boy"),("actor","actress")])
-    #print(bd.detect("girl boy"))
