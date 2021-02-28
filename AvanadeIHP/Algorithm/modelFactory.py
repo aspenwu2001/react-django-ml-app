@@ -1,4 +1,5 @@
 import numpy as np
+from gensim.models import KeyedVectors
 from sklearn.decomposition import PCA
 import gensim
 import gensim.downloader as api
@@ -7,46 +8,45 @@ import gensim.downloader as api
 
 
 class model:
-    def __init__(self,type):
+    def __init__(self):
+
         info = api.info()
-        #type = 0 pretrained model, type = 1 online training model
-        self.type = type
-        self.preTrainedModelList = list(info['models'].keys())
-        self.corporaList = list(info['corpora'].keys())
-        self.ListSelection = 0
-        self.model = ""
+        self.__type = None
+        self.__ListSelection = None
+        self.__model = None
+        self.__address = None
+        self.__preTrainedModelList = list(info['models'].keys())
+        self.__corporaList = list(info['corpora'].keys())
 
     def getPretrainedModelList(self):
-        return self.preTrainedModelList
+        return self.__preTrainedModelList
 
     def getCorporaList(self):
-        return self.corporaList
+        return self.__corporaList
 
     def getModel(self):
-        return self.model
+        return self.__model
 
     def getType(self):
-        return self.type
+        return self.__type
+#type = 0 pretrained model, type = 1 online training model
+    def setType(self,type):
+        self.__type = type
 
-    def SetType(self,type):
-        self.type = type
+    def listSelect(self,select):
+        self.__ListSelection = select
 
-    def ListSelect(self,select):
-        self.ListSelection = select
+    def localModelAddress(self,address):
+        self.__address = address
 
     def generateModel(self):
-        if self.type == 0:
-            self.model = api.load(self.preTrainedModelList[int(self.ListSelection)])
-        elif self.type == 1:
-            corpus = api.load(self.corporaList[int(self.ListSelection)])
-            self.model = Word2Vec(corpus).wv
+        if self.__type == 0:
+            self.__model = api.load(self.__preTrainedModelList[int(self.__ListSelection)])
+        elif self.__type == 1:
+            corpus = api.load(self.__corporaList[int(self.__ListSelection)])
+            self.__model = Word2Vec(corpus).wv
+        elif self.__type == 2:
+            self.__model = KeyedVectors.load_word2vec_format(self.__address, binary=True)
 
 
-
-            
-
-
-
-if __name__ == "__main__":
-    cc = model(0)
 

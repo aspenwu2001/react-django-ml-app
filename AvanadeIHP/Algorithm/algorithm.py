@@ -81,18 +81,4 @@ class biasAlgorithm:
             token_result = {"original": tokens[formattedTokens.index(token)],"token": token, "bias":index,"status": self.estimate(index)}
             results.append(token_result)
         return json.dumps({"results": results},ensure_ascii=False)
-if __name__ == "__main__":
 
-    # cc = wordpair.word_pairs()
-    # print(cc.gender_pair)
-
-    bd = biasAlgorithm();#biased_word_pairs);
-    print(bd.detect("girl with Man artist actor actress work an the so"))
-    print(bd.detect("man, MAN"))
-    print(bd.detect("GIRL"))
-    print(bd.detect("GIrl"))
-    print(bd.detect("GIRl"))
-    #bd.add_pair([("girl", "boy"),("actor","actress")])
-    #print(bd.detect("girl boy"))
-    #bd.add_pair([("girl", "boy"),("actor","actress")])
-    #print(bd.detect("girl boy"))
