@@ -9,17 +9,12 @@ from nltk.tokenize import TweetTokenizer
 import modelFactory
 import json
 import csv
-import string
 
 class biasAlgorithm:
 
-    def __init__(self,model):
+    def __init__(self,model,biasPairAddress):
         self.__model = model
-        pairlist = list(csv.reader(open('GenderBiasPair.csv','r')))
-        temp = []
-        for x in pairlist:
-           temp.append((x[0],x[1]))
-        self.__biased_word_pairs =temp
+        self.__biased_word_pairs =self.__readBiasPair(biasPairAddress)
         self.__process_data()
 
     def estimate(self,index):
@@ -32,6 +27,12 @@ class biasAlgorithm:
         else:
             return "Unbiased"
 
+    def __readBiasPair(self,address):
+        pairlist = list(csv.reader(open(address,'r')))
+        temp = []
+        for x in pairlist:
+           temp.append((x[0],x[1]))
+        return temp
     def reload_new_source(self,newsource):
         self.source = newsource
         self.__model = gensim.models.KeyedVectors.load_word2vec_format(self.source, binary=True)

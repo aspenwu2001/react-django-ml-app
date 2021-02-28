@@ -25,11 +25,11 @@ def model_init(type):
 def processingSentence(sentence,type):
     model = model_init(type)
     print(model)
-    algo = algorithm.biasAlgorithm(model)
+    algo = algorithm.biasAlgorithm(model,'GenderBiasPair.csv')
     result = algo.detect(sentence)
     return result
 
 
 
 if __name__ == "__main__":
-    print(processingSentence("girl with Man artist actor actress work an the so",0))
+    print(processingSentence("girl with Man artist actor actress work an the so",2))
