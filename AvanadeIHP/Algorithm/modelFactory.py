@@ -28,7 +28,7 @@ class model:
     def getType(self):
         return self.type
 
-    def ChangeType(self,type):
+    def SetType(self,type):
         self.type = type
 
     def ListSelect(self,select):
