@@ -9,6 +9,8 @@ from nltk.tokenize import TweetTokenizer
 import modelFactory
 import json
 import csv
+import nltk
+from nltk.corpus import wordnet
 
 class biasAlgorithm:
 
@@ -79,7 +81,26 @@ class biasAlgorithm:
         results = []
         for token in formattedTokens:
             index = self.__detect_bias_pca(token)
-            token_result = {"original": tokens[formattedTokens.index(token)],"token": token, "bias":index,"status": self.estimate(index)}
+            status = self.estimate(index)
+            if(status != "Unbiased" and status != "Lowly Biased"):
+                synonyms = self.getSynonyms(token)
+            token_result = {"original": tokens[formattedTokens.index(token)],"token": token, "bias":index,"status": status,"synonyms": synonyms}
             results.append(token_result)
         return json.dumps({"results": results},ensure_ascii=False)
 
+    def getSynonyms(self,word):
+        synonyms = set()
+        #wordnet
+        nltk.download('punkt')
+        synList = wordnet.synsets(word)
+        print(synList)
+        for syn in wordnet.synsets(word):
+            for l in syn.lemmas():
+                synonym = l.name().replace("_", " ").replace("-", " ").lower()
+                synonym = "".join([char for char in synonym if char in ' qwertyuiopasdfghjklzxcvbnm'])
+                synonyms.add(synonym)
+
+        if word in synonyms:
+            synonyms.remove(word)
+
+        return list(synonyms)
