@@ -35,9 +35,15 @@ class biasAlgorithm:
         for x in pairlist:
            temp.append((x[0],x[1]))
         return temp
-    def reload_new_source(self,newsource):
-        self.source = newsource
-        self.__model = gensim.models.KeyedVectors.load_word2vec_format(self.source, binary=True)
+
+    def changeBiasPair(self,address):
+        self.__biased_word_pairs =self.__readBiasPair(address)
+
+    def getModel(self):
+        return self.__model
+
+    def changeModel(self,model):
+        self.__model = model
 
     def __process_data(self):
         biasedPairs = []
@@ -56,7 +62,7 @@ class biasAlgorithm:
 
     def add_pair(self,newpair):
         self.__biased_word_pairs.extend(newpair)
-        self.__process_data()
+
 
     def __detect_bias_pca(self,word):
         if word not in self.__model:
@@ -91,9 +97,8 @@ class biasAlgorithm:
     def getSynonyms(self,word):
         synonyms = set()
         #wordnet
-        nltk.download('punkt')
+        nltk.download('wordnet')
         synList = wordnet.synsets(word)
-        print(synList)
         for syn in wordnet.synsets(word):
             for l in syn.lemmas():
                 synonym = l.name().replace("_", " ").replace("-", " ").lower()
