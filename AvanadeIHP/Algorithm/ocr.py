@@ -3,7 +3,7 @@ import pytesseract
 
 class OCR:
     def __init__(self):
-        pytesseract.pytesseract.tesseract_cmd = 'Tesseract-OCR\\tesseract.exe'
+        #pytesseract.pytesseract.tesseract_cmd = 'Tesseract-OCR\\tesseract.exe'
         self.custom_config = r'--oem 3 --psm 6'
 
     def readimage(self,address):
