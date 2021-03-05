@@ -1,6 +1,7 @@
 from gensim.models import KeyedVectors
 import algorithm
 import modelFactory
+import ocr
 
 class maincontroller:
     def __init__(self):
@@ -45,32 +46,41 @@ class maincontroller:
         self.__algo = algorithm.biasAlgorithm(self.__modelFactory.getModel(),self.__biasPairAddress)
 
     #Bias pair related functions
-    def setBiasPair(self,address):
+    def setBiasPair(self,address): #change bias pair by given it bias csv location
         self.__biasPairAddress =address
         self.__algo.changeBiasPair(self.__biasPairAddress)
 
-    def addBiasPair(self,biasPair):
+    def addBiasPair(self,biasPair):#add bias pair in current storage, but not change the csv file
         self.__algo.add_pair(biasPair)
     #------------------------------
 
 #----------------------------------------
 
+#OCR function
+    def readimage(self,address):# read character from image
+        self.ocr = ocr.OCR()
+        return self.ocr.readimage(address)
+#----------------------------------------
+
 #Running functions
     def initialise(self):
         self.modelSetting()
-        self.train()
         self.algorithm_init()
 
     def processSentence(self,sentence):
         result = self.__algo.detect(sentence)
         return result
 
+    def run_example1(self):
+        cc = maincontroller()#create instance
+        cc.setType(2)#use url local model
+        cc.initialise()#init model and algo
+        sentence = cc.readimage("cv_example.png") #read input from OCR
+        print(cc.processSentence(sentence))
 #----------------------------------------
 
-if __name__ == "__main__":
-    cc = maincontroller()
-    print(cc.getCorporaList())
-    cc.setType(1)
-    cc.initialise()
 
-    print(cc.processSentence("girl with Man artist actor actress work an the so"))
+
+if __name__ == "__main__":
+    rr = maincontroller()
+    rr.run_example1()

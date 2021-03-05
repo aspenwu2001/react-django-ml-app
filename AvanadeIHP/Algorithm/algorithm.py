@@ -4,7 +4,6 @@ import gensim
 import gensim.downloader as api
 from gensim.models.word2vec import Word2Vec
 from gensim.models import KeyedVectors
-import werkzeug
 from nltk.tokenize import TweetTokenizer
 import modelFactory
 import json
@@ -20,6 +19,8 @@ class biasAlgorithm:
         self.__process_data()
 
     def estimate(self,index):
+        if index == None:
+            return "Unbiased"
         if(index >= 1.5 or index <= -1.5):
             return "Highly Biased"
         elif(index >= 1.05 or index <= -1.05):
@@ -72,13 +73,6 @@ class biasAlgorithm:
 
     def detect(self,sentence):
 
-        if not sentence:
-            raise werkzeug.exceptions.BadRequest("You must provide a sentence param")
-        if len(sentence) > 500:
-            raise werkzeug.exceptions.BadRequest(
-                "Sentence must be at most 500 characters long"
-            )
-
         tokenizer = TweetTokenizer()
         tokens = tokenizer.tokenize(sentence)
         # table = str.maketrans('', '', string.punctuation)
@@ -87,9 +81,11 @@ class biasAlgorithm:
         results = []
         for token in formattedTokens:
             index = self.__detect_bias_pca(token)
-            status = self.estimate(index)
+            status = self.estimate( index)
             if(status != "Unbiased" and status != "Lowly Biased"):
                 synonyms = self.getSynonyms(token)
+            else:
+                synonyms = []
             token_result = {"original": tokens[formattedTokens.index(token)],"token": token, "bias":index,"status": status,"synonyms": synonyms}
             results.append(token_result)
         return json.dumps({"results": results},ensure_ascii=False)
@@ -97,7 +93,7 @@ class biasAlgorithm:
     def getSynonyms(self,word):
         synonyms = set()
         #wordnet
-        nltk.download('wordnet')
+        #nltk.download('wordnet')
         synList = wordnet.synsets(word)
         for syn in wordnet.synsets(word):
             for l in syn.lemmas():
