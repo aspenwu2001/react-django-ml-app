@@ -11,3 +11,4 @@ class WordSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Word
         fields = ('word')
+

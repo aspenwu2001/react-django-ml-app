@@ -6,7 +6,7 @@ from .serializers import WordPairSerializer, WordSerializer
 from .models import WordPair, Word
 from rest_framework.views import APIView
 import json
-from .Algorithm import algorithm, modelFactory
+from .Algorithm import controller
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
@@ -30,9 +30,11 @@ class WordView(APIView):
         else:
             word = Word(word = request.POST['word'])
             
-        model = modelFactory.model(0)
-        bd = algorithm.biasAlgorithm(model)
+        cc = controller.maincontroller()
+        cc.setType(2)
+        cc.initialise()
+
         return JsonResponse({
-            'bias_pair': bd.detect(word)
+            'bias_pair': cc.processSentence(word)
         })
         

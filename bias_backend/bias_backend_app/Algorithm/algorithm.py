@@ -4,11 +4,12 @@ import gensim
 import gensim.downloader as api
 from gensim.models.word2vec import Word2Vec
 from gensim.models import KeyedVectors
-import werkzeug
 from nltk.tokenize import TweetTokenizer
-#import modelFactory
+from . import modelFactory
 import json
 import csv
+import nltk
+from nltk.corpus import wordnet
 
 class biasAlgorithm:
 
@@ -18,6 +19,8 @@ class biasAlgorithm:
         self.__process_data()
 
     def estimate(self,index):
+        if index == None:
+            return "Unbiased"
         if(index >= 1.5 or index <= -1.5):
             return "Highly Biased"
         elif(index >= 1.05 or index <= -1.05):
@@ -33,9 +36,15 @@ class biasAlgorithm:
         for x in pairlist:
            temp.append((x[0],x[1]))
         return temp
-    def reload_new_source(self,newsource):
-        self.source = newsource
-        self.__model = gensim.models.KeyedVectors.load_word2vec_format(self.source, binary=True)
+
+    def changeBiasPair(self,address):
+        self.__biased_word_pairs =self.__readBiasPair(address)
+
+    def getModel(self):
+        return self.__model
+
+    def changeModel(self,model):
+        self.__model = model
 
     def __process_data(self):
         biasedPairs = []
@@ -54,7 +63,7 @@ class biasAlgorithm:
 
     def add_pair(self,newpair):
         self.__biased_word_pairs.extend(newpair)
-        self.__process_data()
+
 
     def __detect_bias_pca(self,word):
         if word not in self.__model:
@@ -64,13 +73,6 @@ class biasAlgorithm:
 
     def detect(self,sentence):
 
-        if not sentence:
-            raise werkzeug.exceptions.BadRequest("You must provide a sentence param")
-        if len(sentence) > 500:
-            raise werkzeug.exceptions.BadRequest(
-                "Sentence must be at most 500 characters long"
-            )
-
         tokenizer = TweetTokenizer()
         tokens = tokenizer.tokenize(sentence)
         # table = str.maketrans('', '', string.punctuation)
@@ -79,6 +81,27 @@ class biasAlgorithm:
         results = []
         for token in formattedTokens:
             index = self.__detect_bias_pca(token)
-            token_result = {"original": tokens[formattedTokens.index(token)],"token": token, "bias":index,"status": self.estimate(index)}
+            status = self.estimate( index)
+            if(status != "Unbiased" and status != "Lowly Biased"):
+                synonyms = self.getSynonyms(token)
+            else:
+                synonyms = []
+            token_result = {"original": tokens[formattedTokens.index(token)],"token": token, "bias":index,"status": status,"synonyms": synonyms}
             results.append(token_result)
         return json.dumps({"results": results},ensure_ascii=False)
+
+    def getSynonyms(self,word):
+        synonyms = set()
+        #wordnet
+        #nltk.download('wordnet')
+        synList = wordnet.synsets(word)
+        for syn in wordnet.synsets(word):
+            for l in syn.lemmas():
+                synonym = l.name().replace("_", " ").replace("-", " ").lower()
+                synonym = "".join([char for char in synonym if char in ' qwertyuiopasdfghjklzxcvbnm'])
+                synonyms.add(synonym)
+
+        if word in synonyms:
+            synonyms.remove(word)
+
+        return list(synonyms)
