@@ -35,6 +35,7 @@ class model:
 
     def getlocalModelAddress(self):
         return self.__address
+        
 #type = 0 pretrained model, type = 1 online training model
     def setType(self,type):
         self.__type = type
