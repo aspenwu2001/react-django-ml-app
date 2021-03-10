@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {
   Typography,
   FormControlLabel,
-  Checkbox,
+  Radio,
   AccordionDetails,
   AccordionSummary,
   Accordion,
@@ -38,7 +38,7 @@ const Corpus = ({ className, ...rest }) => {
               aria-label="Acknowledge"
               onClick={(event) => event.stopPropagation()}
               onFocus={(event) => event.stopPropagation()}
-              control={<Checkbox />}
+              control={<Radio />}
               label="model1"
             />
           </AccordionSummary>
@@ -59,7 +59,7 @@ const Corpus = ({ className, ...rest }) => {
               aria-label="Acknowledge"
               onClick={(event) => event.stopPropagation()}
               onFocus={(event) => event.stopPropagation()}
-              control={<Checkbox />}
+              control={<Radio />}
               label="model2"
             />
           </AccordionSummary>
@@ -80,7 +80,7 @@ const Corpus = ({ className, ...rest }) => {
               aria-label="Acknowledge"
               onClick={(event) => event.stopPropagation()}
               onFocus={(event) => event.stopPropagation()}
-              control={<Checkbox />}
+              control={<Radio />}
               label="model3"
             />
           </AccordionSummary>

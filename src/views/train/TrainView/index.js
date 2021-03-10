@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core';
 import Page from 'src/components/Page';
 import SelectPage from './SelectPage';
+import SetWordPage from './SetWordPage';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,7 +35,7 @@ function getStepContent(step) {
     case 0:
       return <SelectPage />;
     case 1:
-      return 'An ad group contains one or more ads which target a shared set of keywords.';
+      return <SetWordPage />;
     case 2:
       return `Try out different ad text to see what brings in the most customers,
               and learn how to enhance your ads using features like ad extensions.
