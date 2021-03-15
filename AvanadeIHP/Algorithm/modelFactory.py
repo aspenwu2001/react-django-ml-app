@@ -10,7 +10,7 @@ class model:
         self.__type = 0 #default
         self.__ListSelection = 5 #default
         self.__model = None
-        self.__address = "GoogleNews-vectors-negative300.bin.gz" #default
+        self.__address = "C:/Users/ASUS/Documents/Algorithm/Algorithm/GoogleNews-vectors-negative300.bin.gz" #default
         self.__preTrainedModelList = list(info['models'].keys())
         self.__corporaList = list(info['corpora'].keys())
 
