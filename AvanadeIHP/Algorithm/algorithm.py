@@ -18,11 +18,11 @@ class biasAlgorithm:
         if index == None:
             return "Unbiased"
         if(index >= 1.5 or index <= -1.5):
-            return "Highly Biased"
-        elif(index >= 1.05 or index <= -1.05):
-            return "Intermediatly Biased"
+            return "High biased"
+        elif(index >= 1.25 or index <= -1.25):
+            return "Medium Biased"
         elif(index >= 1 or index <= -1):
-            return "Lowly Biased"
+            return "Low Biased"
         else:
             return "Unbiased"
 
@@ -45,8 +45,8 @@ class biasAlgorithm:
     def getBiasPair(self):
         return self.__biased_word_pairs
 
-    def changeBiasPair(self,address):
-        self.__biased_word_pairs =self.__readBiasPair(address)
+    def changeBiasPair(self,type):
+        self.__biased_word_pairs =self.__defaultBiasPair(type)
 
     def getModel(self):
         return self.__model
