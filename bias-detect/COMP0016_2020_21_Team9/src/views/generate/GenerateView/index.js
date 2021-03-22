@@ -3,7 +3,6 @@ import {
   Container,
   Grid,
   Box,
-  Button,
   makeStyles
 } from '@material-ui/core';
 import Page from 'src/components/Page';
@@ -53,14 +52,6 @@ const GenerateView = () => {
               xs={12}
             >
               <Results bias_response={location.state.bias_response} />
-            </Grid>
-            <Grid
-              item
-              xs={12}
-            >
-              <Button variant="contained" color="primary" component={Link} to="/app/finalPage">
-                Next
-              </Button>
             </Grid>
           </Grid>
         </Box>

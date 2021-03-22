@@ -69,7 +69,8 @@ class handleRequest(APIView):
         #   cc.setType(0)
         #elif corpus1 or corpus2 or corpus3:
         #   cc.setType(1)
-        cc.setType(2) #use url local model
+        
+        #cc.setType(2) #use url local model
 
         if preference == 'gender':
             cc.setBiasPair(1)
@@ -81,19 +82,26 @@ class handleRequest(APIView):
             cc.setBiasPair(1) #default is Gender type
         
         #defalut model is GoogleNews
+        #Change the choosen_model_address path to GoogleNewsModel location
         choosen_model_address = "/Users/markhan/UCL_CS/System_Engineering/final/bias-detect/bias_backend/bias_backend/bias_backend/bias_backend_app/Algorithm/GoogleNews-vectors-negative300.bin.gz"
 
         if model == 'model1': #model1 -> GoogleNews
+            cc.setType(2)
             choosen_model_address = "/Users/markhan/UCL_CS/System_Engineering/final/bias-detect/bias_backend/bias_backend/bias_backend/bias_backend_app/Algorithm/GoogleNews-vectors-negative300.bin.gz"
+            cc.changeUrl(choosen_model_address)
         elif model == 'model2': 
-            choosen_model_address = ""
-        elif model == 'model3': 
-            choosen_model_address = ""
-        elif model == 'model4':
-            choosen_model_address = "" #have to set path of each model
-        
+            cc.setType(0)
+            cc.setModelSelection(0)
 
-        cc.setBiasPair(choosen_model_address)
+        elif model == 'model3': 
+            cc.setType(0)
+            cc.setModelSelection(1)
+
+        elif model == 'model4':
+            cc.setType(0)
+            cc.setModelSelection(2)
+
+        
         cc.initialise() #init model and algo
 
         bias_str = cc.processSentence(decoded_str)
