@@ -12,6 +12,7 @@ import {
   FormControl,
   FormControlLabel,
   FormLabel,
+  TextField,
   Typography,
   CardActions,
   Paper,
@@ -49,6 +50,11 @@ const SelectModel = () => {
   const classes = useStyles();
   const navigate = useNavigate();
   const [model, setModel] = React.useState('model1');
+  const [modelURL, setModelURL] = React.useState('https://s3.amazonaws.com/dl4j-distribution/GoogleNews-vectors-negative300.bin.gz')
+
+  const handleChangeURL = (event) => {
+    setModelURL(event.target.value)
+  };
 
   const handleChange = (event) => {
     setModel(event.target.value);
@@ -153,6 +159,7 @@ const SelectModel = () => {
                   <FormControlLabel value="model2" control={<Radio />} label="fasttext-wiki-news-subwords-300" />
                   <FormControlLabel value="model3" control={<Radio />} label="glove-wiki-gigaword-300" />
                   <FormControlLabel value="model4" control={<Radio />} label="glove-twitter-200" />
+                  <TextField label="If you want other Model, type URL" variant="outlined" onChange={handleChange}/>
                 </RadioGroup>
               </FormControl>
             </Grid>

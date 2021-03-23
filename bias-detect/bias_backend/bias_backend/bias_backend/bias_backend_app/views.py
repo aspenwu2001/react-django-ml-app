@@ -47,6 +47,7 @@ class handleRequest(APIView):
         file_string = requestBody['file_obj']
         preference = requestBody['preference']
         model = requestBody['model']
+        #model_url = requestBody['model_url']
 
         decoded_str = ""
 
@@ -101,8 +102,17 @@ class handleRequest(APIView):
             cc.setType(0)
             cc.setModelSelection(2)
 
+        else: #When user send URL
+            print("got URL from user: " + model)
+            cc.setType(2)
+            cc.changeUrl(model)
+            print("Model changed with the URL")
+
+
         
         cc.initialise() #init model and algo
+
+        print("model initialised")
 
         bias_str = cc.processSentence(decoded_str)
 
