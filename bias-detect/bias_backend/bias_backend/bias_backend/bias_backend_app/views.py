@@ -90,6 +90,7 @@ class handleRequest(APIView):
             cc.setType(2)
             choosen_model_address = "/Users/markhan/UCL_CS/System_Engineering/final/bias-detect/bias_backend/bias_backend/bias_backend/bias_backend_app/Algorithm/GoogleNews-vectors-negative300.bin.gz"
             cc.changeUrl(choosen_model_address)
+
         elif model == 'model2': 
             cc.setType(0)
             cc.setModelSelection(0)
@@ -103,16 +104,10 @@ class handleRequest(APIView):
             cc.setModelSelection(2)
 
         else: #When user send URL
-            print("got URL from user: " + model)
             cc.setType(2)
             cc.changeUrl(model)
-            print("Model changed with the URL")
 
-
-        
         cc.initialise() #init model and algo
-
-        print("model initialised")
 
         bias_str = cc.processSentence(decoded_str)
 
