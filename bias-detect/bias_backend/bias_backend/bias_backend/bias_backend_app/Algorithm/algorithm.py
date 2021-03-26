@@ -111,7 +111,8 @@ class biasAlgorithm:
                             synonyms.remove(x)
                 else:
                     synonyms = []
-                token_result = {"original": tokens[formattedTokens.index(token)],"token": token, "bias":index,"status": status,"synonyms": synonyms,"index": formattedTokens.index(token) }                results.append(token_result)
+                token_result = {"original": tokens[formattedTokens.index(token)],"token": token, "bias":index,"status": status,"synonyms": synonyms,"index": formattedTokens.index(token) }                
+                results.append(token_result)
         return json.dumps({"results": results},ensure_ascii=False)
 
 
