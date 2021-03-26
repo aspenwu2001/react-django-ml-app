@@ -11,7 +11,7 @@ Project is created with:
 The first thing to do is to clone the repository:
 
     $ git clone https://github.com/UCLComputerScience/COMP0016_2020_21_Team9.git
-    $ cd COMP0016_2020_21_Team9/bias_backend
+    $ cd COMP0016_2020_21_Team9/bias-detect/bias_backend
 
 Create a virtual environment to install dependencies in and activate it:
 
