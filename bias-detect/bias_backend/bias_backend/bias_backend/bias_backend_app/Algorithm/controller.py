@@ -97,8 +97,12 @@ class maincontroller:
             displayText += " " + tokens["original"]
         return displayText
 
-    def changeContent(self,index,content):
-        self.__result["results"][index] = content
+    def changeContent(self,listSubstitute):
+        #listSubstitute = [[0,3,5],["fsad","gdfd","fgfdf"]]
+        for x in range(0,listSubstitute[0]):
+            index = listSubstitute[0][x]
+            content = listSubstitute[1][x]
+            self.__result["results"][index]["original"] = content
 #----------------------------------------
 
 
