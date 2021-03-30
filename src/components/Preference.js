@@ -10,6 +10,8 @@ import {
   FormControl,
   FormControlLabel,
   FormLabel,
+  Fade,
+  CircularProgress,
   makeStyles,
   Container
 } from '@material-ui/core';
@@ -45,6 +47,7 @@ const Preference = ({model, navigate}) => {
   const classes = useStyles();
   const [preferenceValue, setPreferenceValue] = React.useState('gender');
   const [fileObj, setFileObj] = React.useState('');
+  const [loading, setLoading] = React.useState(false);
 
   // Create a reference to the hidden file input element
   const hiddenFileInput = React.useRef(null);
@@ -60,6 +63,10 @@ const Preference = ({model, navigate}) => {
 
   const handleClick = () => {
     hiddenFileInput.current.click();
+  };
+  
+  const handleClickLoading = () => {
+    setLoading((prevLoading) => !prevLoading);
   };
 
   const handleChange = (event) => {
@@ -147,7 +154,7 @@ const Preference = ({model, navigate}) => {
     <React.Fragment>
       <Paper maxWidth="sm" component="main" className={classes.heroContent}>
         <Typography variant="h5" align="center" color="textSecondary" component="p">
-          Project Description
+          Once you comfrim, please wait for few minutes and don not touch anything
         </Typography>
         <Container className={classes.cardGrid} maxWidth="md">
           <Grid container spacing={6} justify="center">
@@ -171,9 +178,18 @@ const Preference = ({model, navigate}) => {
         </Container>
       </Paper>
       <Container>
-        <Button onClick={handleSubmit} variant="contained" color="primary">
+        <Button onClick={handleSubmit,handleClickLoading} variant="contained" color="primary">
           Comfirm
         </Button>
+        <Fade
+          in={loading}
+          style={{
+            transitionDelay: loading ? '800ms' : '0ms',
+          }}
+            unmountOnExit
+        >
+          <CircularProgress />
+        </Fade>
       </Container>
     </React.Fragment>
   );
